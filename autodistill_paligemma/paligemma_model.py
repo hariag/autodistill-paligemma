@@ -79,6 +79,8 @@ class PaliGemma(DetectionBaseModel):
         detections = sv.Detections.from_lmm(
             sv.LMM.PALIGEMMA, response.response, resolution_wh=(width, height), classes=self.ontology.classes()
         )
+        detections.class_id = [0] * len(detections.xyxy)
+        detections.confidence = [1] * len(detections.xyxy)
         # detections = detections[detections.confidence > confidence]
 
         return detections
